@@ -4,48 +4,52 @@ class ProductManager {
     }
 
     addProduct(newProd){
+
+        const isEmpty = Object.values(newProd).some(x => x === null || x === '');
         const prodArray = this.products
         newProd.id = prodArray.length+1
+        if(isEmpty){
+            console.log("Invalid Product")
+        } else{
         prodArray.push(newProd)
+        }
     }
 
 
     getProducts(){
-            console.log(this.products)
-        }
+        return this.products        
+    }
     
 
     getProductById(id){
         const allProductsArr = this.products;
-        const newProductsArr = allProductsArr.filter((prod) => prod.id == id);
-        console.log(newProductsArr)
-    }
 
+        const prodById = allProductsArr.find((prod) => prod.id == id);
+        if (prodById === undefined){
+            return 'Product not found'
+        } else {
+        return prodById
+    }
+    }
 }
+
+
 
 const products = new ProductManager([])
 
 
 products.addProduct(
     {title: "Title",
-    description: "Description",
+    description: "description",
     price: 123,
     thumbnail: "thumbnail route",
     code: "aaa",
     stock: 0
-}
-)
-products.addProduct(
-    {title: "Title2",
-    description: "Description2",
-    price: 456,
-    thumbnail: "thumbnail route",
-    code: "aab",
-    stock: 1
-}
-)
+})
 
 products.getProducts()
 products.getProductById(1)
+
+console.log(products.getProductById(1))
 
 
